@@ -1,0 +1,60 @@
+<hml>
+
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+
+        <div class="container-lg">
+            <h1>Calculadora</h1>
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control num1" placeholder="Primer Numero">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control num2" placeholder="Segundo Numero">
+                    </div>
+                </div>
+                <br>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" id="Sumar" class="btn btn-secondary">Sumar</button>
+                    <button type="button" id="Restar" class="btn btn-secondary">Restar</button>
+                    <button type="button" id="Multiplicar" class="btn btn-secondary">Multiplicar</button>
+                    <button type="button" id="Dividir" class="btn btn-secondary">Dividir</button>
+                </div>
+            </form>
+
+
+            <div class="alert alert-success" role="alert">
+                Su resultado:
+            </div>
+
+        </div>
+        <script>
+            $(".alert").hide();
+            var num1 = "";
+            var num2 = "";
+            $(".btn").click(function() {
+                var funcion = $(this).attr("id");
+                $(".alert").hide();
+                num1 = $(".num1").val();
+                num2 = $(".num2").val();
+                $.ajax({
+                    url: "prueba.php",
+                    type: "GET",
+                    data: {
+                        "num1": num1,
+                        "num2": num2,
+                        "funcion": funcion
+                    }
+                }).done(function(res) {
+                    $(".alert").show();
+                    $(".alert").text("Resultado = " + res);
+                })
+            })
+        </script>
+    </body>
+</hml>
